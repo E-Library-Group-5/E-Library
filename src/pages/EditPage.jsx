@@ -31,7 +31,7 @@ function EditBook() {
   };
 
   return (
-    <div style={{ maxWidth: "500px", margin: "0 auto", padding: "20px" }}>
+    <div style={{ maxWidth: "500px", background: "grey", margin: "0 auto", padding: "20px" }}>
       <h2 style={{padding: "20px 0px"}}><b>Edit Book Details</b></h2>
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "15px" }}>
@@ -92,9 +92,10 @@ function EditBook() {
             </option>
             <option value="Fiction">Fiction</option>
             <option value="Non-Fiction">Non-Fiction</option>
-            <option value="Science">Science</option>
+            <option value="Mistery">Mistery</option>
             <option value="History">History</option>
-            <option value="Biography">Biography</option>
+            <option value="Technology">Technology</option>
+            <option value="Contemporary Literature">Contemporaray Literature</option>
           </select>
         </div>
 
