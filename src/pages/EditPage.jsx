@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function AddBook() {
+function EditBook() {
   const [formData, setFormData] = useState({
     title: "",
     author: "",
@@ -19,9 +19,8 @@ function AddBook() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Book Added:", formData);
-    // Here you can send the data to the server or update the state in the app
-    alert("New book added successfully!");
+    console.log("Book Edited:", formData);
+    alert("Book details edited successfully!");
     setFormData({
       title: "",
       author: "",
@@ -33,7 +32,7 @@ function AddBook() {
 
   return (
     <div style={{ maxWidth: "500px", margin: "0 auto", padding: "20px" }}>
-      <h2 style={{padding: "20px 0px"}}><b>Add New Book</b></h2>
+      <h2 style={{padding: "20px 0px"}}><b>Edit Book Details</b></h2>
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "15px" }}>
           <label style={{ display: "block", marginBottom: "5px" }}>
@@ -117,17 +116,17 @@ function AddBook() {
           type="submit"
           style={{
             padding: "10px 15px",
-            backgroundColor: "blue",
+            backgroundColor: "green",
             color: "white",
             border: "none",
             cursor: "pointer",
           }}
         >
-          Add Book
+          Edit Book
         </button>
       </form>
     </div>
   );
 }
 
-export default AddBook;
+export default EditBook;
