@@ -50,7 +50,7 @@ const Navbar = () => {
         <div className="hidden md:flex space-x-8">
           <NavLink href="/" label="Home" scrolled={scrolled} />
           <NavLink href="/catalog" label="Catalog" scrolled={scrolled} />
-          <NavLink href="/events" label="Events" scrolled={scrolled} />
+          <NavLink href="/eventspage" label="Events" scrolled={scrolled} />
           <NavLink href="/about" label="About" scrolled={scrolled} />
           <NavLink href="/contact" label="Contact" scrolled={scrolled} />
         </div>
