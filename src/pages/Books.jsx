@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PagesLayouts from "../layouts/PagesLayouts";
 import { Trash2, Edit, X, Check } from "lucide-react";
 import mockingBird from "../assets/images/Mockingbird.png";
@@ -10,6 +10,7 @@ import theCatcher from "../assets/images/TheCatcher.png";
 import lordFlies from "../assets/images/lordFlies.jpg";
 import alChemist from "../assets/images/alchemist.jpg";
 import bookShelf from "../assets/images/bookshelf.jpg";
+import axios from "axios";
 
 // Edit Book Form Component
 const EditBookForm = ({ book, onSave, onCancel, onChange }) => {
@@ -201,88 +202,7 @@ const BookDetails = ({ book, onClose }) => {
 
 const Books = () => {
   // Sample book data with fixed IDs
-  const [books, setBooks] = useState([
-    {
-      id: 1,
-      title: "To Kill a Mockingbird",
-      author: "Harper Lee",
-      cover: mockingBird,
-      genre: "Fiction",
-      year: 1960,
-      available: true,
-      rating: 4.8,
-    },
-    {
-      id: 2,
-      title: "1984",
-      author: "George Orwell",
-      cover: george1984,
-      genre: "Science Fiction",
-      year: 1949,
-      available: true,
-      rating: 4.7,
-    },
-    {
-      id: 3,
-      title: "The Great Gatsby",
-      author: "F. Scott Fitzgerald",
-      cover: greatGatsby,
-      genre: "Fiction",
-      year: 1925,
-      available: false,
-      rating: 4.5,
-    },
-    {
-      id: 4,
-      title: "Pride and Prejudice",
-      author: "Jane Austen",
-      cover: pridePrejudice,
-      genre: "Romance",
-      year: 1813,
-      available: true,
-      rating: 4.6,
-    },
-    {
-      id: 5,
-      title: "The Hobbit",
-      author: "J.R.R. Tolkien",
-      cover: theHobbit,
-      genre: "Fantasy",
-      year: 1937,
-      available: true,
-      rating: 4.9,
-    },
-    {
-      id: 6,
-      title: "The Catcher in the Rye",
-      author: "J.D. Salinger",
-      cover: theCatcher,
-      genre: "Fiction",
-      year: 1951,
-      available: false,
-      rating: 4.3,
-    },
-    {
-      id: 7,
-      title: "Lord of the Flies",
-      author: "William Golding",
-      cover: lordFlies,
-      genre: "Fiction",
-      year: 1954,
-      available: false,
-      rating: 4.1,
-    },
-    {
-      id: 8,
-      title: "The Alchemist",
-      author: "Paulo Coelho",
-      cover: alChemist,
-      genre: "Fantasy",
-      year: 1988,
-      available: true,
-      rating: 4.4,
-    },
-  ]);
+  const [books, setBooks] = useState([]);
 
   // Filter states
   const [searchTerm, setSearchTerm] = useState("");
@@ -305,8 +225,11 @@ const Books = () => {
   });
 
   // Handle book deletion
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (confirm("Are you sure you want to delete this book?")) {
+      await axios.delete(
+        `https://library-api-gxyy.onrender.com/api/v1/books/${id}`
+      );
       setBooks(books.filter((book) => book.id !== id));
     }
   };
@@ -342,6 +265,17 @@ const Books = () => {
   const handleViewDetails = (book) => {
     setViewingBook(book);
   };
+
+  const getBooks = async () => {
+    const response = await axios.get(
+      "https://library-api-gxyy.onrender.com/api/v1/books"
+    );
+    setBooks(response.data);
+  };
+
+  useEffect(() => {
+    getBooks();
+  }, []);
 
   return (
     <PagesLayouts>
@@ -416,7 +350,7 @@ const Books = () => {
                   <>
                     <div className="relative h-64 overflow-hidden">
                       <img
-                        src={book.cover}
+                        src={`https://savefiles.org/${book.image}?shareable_link=638`}
                         alt={`${book.title} cover`}
                         className="w-full h-full object-cover"
                       />
