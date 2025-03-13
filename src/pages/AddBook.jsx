@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
 const AddBook = () => {
@@ -5,22 +6,22 @@ const AddBook = () => {
     title: '',
     author: '',
     isbn: '',
-    category: '',
-    publishedDate: '',
+    genre: '',
+    publishedYear: '',
     file: null
   });
-  
+
   const [fileName, setFileName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState({});
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setState(prev => ({
       ...prev,
       [name]: value
     }));
-    
+
     // Clear error when user updates a field
     if (formErrors[name]) {
       setFormErrors(prev => ({
@@ -29,7 +30,7 @@ const AddBook = () => {
       }));
     }
   };
-  
+
   const handleFileChange = (e) => {
     if (e.target.files.length > 0) {
       const file = e.target.files[0];
@@ -38,7 +39,7 @@ const AddBook = () => {
         ...prev,
         file: file
       }));
-      
+
       // Clear file error if it exists
       if (formErrors.file) {
         setFormErrors(prev => ({
@@ -48,27 +49,39 @@ const AddBook = () => {
       }
     }
   };
-  
+
   const validateForm = () => {
     const errors = {};
     if (!formData.title) errors.title = "Title is required";
     if (!formData.author) errors.author = "Author is required";
     if (!formData.isbn) errors.isbn = "ISBN is required";
-    if (!formData.category) errors.category = "Please select a category";
-    
+    if (!formData.genre) errors.genre = "Please select a genre";
+    if (!formData.publishedYear) errors.publishedYear = "Year of publication";
+
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
-  
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
+    // Post formData to backend
+    const data = new FormData();
+    data.append('title', formData.title);
+    data.append('author', formData.author);
+    data.append('isbn', formData.isbn);
+    data.append('genre', formData.genre);
+    data.append('publishedYear', formData.publishedYear);
+    data.append('image', formData.image);
+    const response = await axios.post('https://library-api-gxyy.onrender.com/api/v1/books', formData);
+    console.log(response.data);
+
     // Simulate form submission
     setTimeout(() => {
       console.log("Form submitted with data:", formData);
@@ -78,19 +91,21 @@ const AddBook = () => {
         title: '',
         author: '',
         isbn: '',
-        category: '',
-        publishedDate: '',
+        genre: '',
+        publishedYear: '',
         file: null
       });
+
+      
       setFileName('');
       alert("Book added successfully!");
     }, 1000);
   };
-  
+
   return (
     <div className="max-w-2xl mx-auto p-4 bg-blue-300 rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-6 text-center">Add New Book</h1>
-      
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="title" className="block text-sm font-medium mb-1">
@@ -108,7 +123,7 @@ const AddBook = () => {
             <p className="text-red-500 text-xs mt-1">{formErrors.title}</p>
           )}
         </div>
-        
+
         <div>
           <label htmlFor="author" className="block text-sm font-medium mb-1">
             Author:
@@ -125,7 +140,7 @@ const AddBook = () => {
             <p className="text-red-500 text-xs mt-1">{formErrors.author}</p>
           )}
         </div>
-        
+
         <div>
           <label htmlFor="isbn" className="block text-sm font-medium mb-1">
             ISBN:
@@ -142,19 +157,19 @@ const AddBook = () => {
             <p className="text-red-500 text-xs mt-1">{formErrors.isbn}</p>
           )}
         </div>
-        
+
         <div>
-          <label htmlFor="category" className="block text-sm font-medium mb-1">
-            Category:
+          <label htmlFor="genre" className="block text-sm font-medium mb-1">
+            Genre:
           </label>
           <select
-            id="category"
-            name="category"
-            value={formData.category}
+            id="genre"
+            name="genre"
+            value={formData.genre}
             onChange={handleChange}
-            className={`w-full p-2 border rounded-md bg-white ${formErrors.category ? 'border-red-500' : 'border-gray-300'}`}
+            className={`w-full p-2 border rounded-md bg-white ${formErrors.genre ? 'border-red-500' : 'border-gray-300'}`}
           >
-            <option value="">Select a category</option>
+            <option value="">Select a genre</option>
             <option value="fiction">Fiction</option>
             <option value="non-fiction">Non-Fiction</option>
             <option value="mystery">Mystery</option>
@@ -163,25 +178,25 @@ const AddBook = () => {
             <option value="contemporary literature">Contemporary Literature</option>
 
           </select>
-          {formErrors.category && (
-            <p className="text-red-500 text-xs mt-1">{formErrors.category}</p>
+          {formErrors.genre && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.genre}</p>
           )}
         </div>
-        
+
         <div>
-          <label htmlFor="publishedDate" className="block text-sm font-medium mb-1">
-            Published Date:
+          <label htmlFor="publishedYear" className="block text-sm font-medium mb-1">
+            Published Year:
           </label>
           <input
-            id="publishedDate"
-            name="publishedDate"
-            type="date"
-            value={formData.publishedDate}
+            id="publishedYear"
+            name="publishedYear"
+            type="year"
+            value={formData.publishedYear}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
-        
+
         <div>
           <label htmlFor="file" className="block text-sm font-medium mb-1">
             Upload Book Cover or PDF:
@@ -211,7 +226,7 @@ const AddBook = () => {
             </label>
           </div>
         </div>
-        
+
         <div>
           <button
             type="submit"
