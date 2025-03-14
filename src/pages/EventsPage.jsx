@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import PagesLayouts from "../layouts/PagesLayouts";
+import eveNts1 from "../assets/images/event1.jpg";
+import eveNts2 from "../assets/images/event2.jpg";
+import eveNts3 from "../assets/images/event3.jpg";
+import eveNts4 from "../assets/images/event4.jpg";
+import eveNts5 from "../assets/images/event5.jpg";
+import eveNts6 from "../assets/images/event6.jpg";
 
 const EventsPage = () => {
   // Sample upcoming events data
@@ -11,7 +17,7 @@ const EventsPage = () => {
       time: "6:00 PM - 7:30 PM",
       location: "Main Reading Room",
       category: "Author Event",
-      image: "/api/placeholder/500/300",
+      image: eveNts1,
       description:
         "Join us for an evening with acclaimed author Margaret Atwood as she discusses her latest novel and answers questions from the audience. Book signing to follow.",
     },
@@ -22,7 +28,7 @@ const EventsPage = () => {
       time: "10:00 AM - 11:00 AM",
       location: "Children's Section",
       category: "Children",
-      image: "/api/placeholder/500/300",
+      image: eveNts2,
       description:
         "Weekly storytime for children ages 3-7. Join us for stories, songs, and crafts designed to encourage early literacy skills and a love of reading.",
     },
@@ -33,7 +39,7 @@ const EventsPage = () => {
       time: "2:00 PM - 4:00 PM",
       location: "Computer Lab",
       category: "Workshop",
-      image: "/api/placeholder/500/300",
+      image: eveNts3,
       description:
         "Learn essential computer skills including email basics, internet safety, and using online resources. Perfect for beginners and seniors looking to build confidence with technology.",
     },
@@ -44,7 +50,7 @@ const EventsPage = () => {
       time: "7:00 PM - 8:30 PM",
       location: "Discussion Room B",
       category: "Book Club",
-      image: "/api/placeholder/500/300",
+      image: eveNts4,
       description:
         "This month we're discussing 'Dune' by Frank Herbert. New members always welcome! Refreshments provided.",
     },
@@ -55,7 +61,7 @@ const EventsPage = () => {
       time: "1:00 PM - 3:00 PM",
       location: "Meeting Room A",
       category: "Workshop",
-      image: "/api/placeholder/500/300",
+      image: eveNts5,
       description:
         "Learn how to craft effective resumes and cover letters. Bring your current resume for personalized feedback from career professionals.",
     },
@@ -66,7 +72,7 @@ const EventsPage = () => {
       time: "6:00 PM - 8:30 PM",
       location: "Community Room",
       category: "Teen",
-      image: "/api/placeholder/500/300",
+      image: eveNts6,
       description:
         "Join us for a screening of a popular teen movie adaptation. Pizza and snacks will be provided. For ages 13-18.",
     },
@@ -279,17 +285,18 @@ const EventsPage = () => {
     <PagesLayouts>
       <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}
-        <div className="bg-blue-800 text-white py-16 text-center">
-          <div className="container mx-auto px-4">
-            <h1 className="text-4xl font-bold mb-4">Events & Programs</h1>
-            <p className="text-xl max-w-2xl mx-auto">
+        <div className="bg-[url('assets/images/bookshelf.jpg')] bg-cover text-white py-16 text-center flex items-center justify-center">
+          <div className="container mx-auto px-4 flex flex-col items-center">
+            <h1 className="text-4xl font-bold mb-4 text-center">
+              Events & Programs
+            </h1>
+            <p className="text-xl max-w-2xl text-center">
               Discover our exciting lineup of events, workshops, and programs
               for all ages. Join us to learn, create, and connect with your
               community.
             </p>
           </div>
         </div>
-
         {/* Filters and Search */}
         <div className="container mx-auto px-4 py-8">
           <div className="bg-white rounded-lg shadow-md p-6 mb-8">
