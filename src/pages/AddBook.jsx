@@ -4,12 +4,21 @@ import PagesLayouts from "../layouts/PagesLayouts";
 
 const AddBook = () => {
   const [formData, setState] = useState({
+ origin/add-a-new-book
+    title: '',
+    author: '',
+    isbn: '',
+    genre: '',
+    publishedYear: '',
+    image: null,
+
     title: "",
     author: "",
     isbn: "",
     genre: "",
     publishedYear: "",
     file: null,
+
   });
 
   const [fileName, setFileName] = useState("");
@@ -38,14 +47,22 @@ const AddBook = () => {
       setFileName(file.name);
       setState((prev) => ({
         ...prev,
+ origin/add-a-new-book
+        image: file
+=======
         file: file,
+ main
       }));
 
       // Clear file error if it exists
       if (formErrors.file) {
         setFormErrors((prev) => ({
           ...prev,
+ origin/add-a-new-book
+          image: null
+=======
           file: null,
+ main
         }));
       }
     }
@@ -58,6 +75,7 @@ const AddBook = () => {
     if (!formData.isbn) errors.isbn = "ISBN is required";
     if (!formData.genre) errors.genre = "Please select a genre";
     if (!formData.publishedYear) errors.publishedYear = "Year of publication";
+    if (!formData.image) errors.image = "Upload image of Book Cover";
 
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -71,6 +89,35 @@ const AddBook = () => {
     }
 
     setIsSubmitting(true);
+
+ origin/add-a-new-book
+    // Post formData to backend
+    const data = new FormData();
+    data.append('title', formData.title);
+    data.append('author', formData.author);
+    data.append('isbn', formData.isbn);
+    data.append('genre', formData.genre);
+    data.append('publishedYear', formData.publishedYear);
+    data.append('image', formData.image);
+    const response = await axios.post('https://library-api-gxyy.onrender.com/api/v1/books', data);
+    console.log(response.data);
+
+    // Simulate form submission
+    setTimeout(() => {
+      console.log("Form submitted with data:", formData);
+      setIsSubmitting(false);
+      // Reset form after successful submission
+      setState({
+        title: '',
+        author: '',
+        isbn: '',
+        genre: '',
+        publishedYear: '',
+        image: null
+      });
+
+     
+      setFileName('');
 
     try {
       // Post formData to backend
@@ -102,6 +149,7 @@ const AddBook = () => {
       });
 
       setFileName("");
+
       alert("Book added successfully!");
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -112,11 +160,34 @@ const AddBook = () => {
   };
 
   return (
+ origin/add-a-new-book
+    <div className="max-w-2xl mx-auto p-4 bg-blue-300 rounded-lg shadow-md">
+      <h1 className="text-2xl font-bold mb-6 text-center">Add Book</h1>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="title" className="block text-sm font-medium mb-1">
+            Title:
+          </label>
+          <input
+            id="title"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            className={`w-full p-2 border rounded-md ${formErrors.title ? 'border-red-500' : 'border-gray-300'}`}
+            placeholder="Enter book title"
+          />
+          {formErrors.title && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.title}</p>
+          )}
+        </div>
+
     <PagesLayouts>
       {/* Add proper padding to ensure content doesn't get covered by navbar/footer */}
       <div className="py-16 px-4 min-h-screen">
         <div className="max-w-2xl mx-auto p-4 bg-blue-300 rounded-lg shadow-md mt-8 mb-16">
           <h1 className="text-2xl font-bold mb-6 text-center">Add New Book</h1>
+
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -160,6 +231,32 @@ const AddBook = () => {
               )}
             </div>
 
+ origin/add-a-new-book
+        <div>
+          <label htmlFor="genre" className="block text-sm font-medium mb-1">
+            Genre:
+          </label>
+          <select
+            id="genre"
+            name="genre"
+            value={formData.genre}
+            onChange={handleChange}
+            className={`w-full p-2 border rounded-md bg-white ${formErrors.genre ? 'border-red-500' : 'border-gray-300'}`}
+          >
+            <option value="">Select a genre</option>
+            <option value="fiction">Fiction</option>
+            <option value="non-fiction">Non-Fiction</option>
+            <option value="mystery">Mystery</option>
+            <option value="romance">Romance</option>
+            <option value="technology">Technology</option>
+            <option value="contemporary literature">Contemporary Literature</option>
+
+          </select>
+          {formErrors.genre && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.genre}</p>
+          )}
+        </div>
+
             <div>
               <label htmlFor="isbn" className="block text-sm font-medium mb-1">
                 ISBN:
@@ -178,6 +275,7 @@ const AddBook = () => {
                 <p className="text-red-500 text-xs mt-1">{formErrors.isbn}</p>
               )}
             </div>
+
 
             <div>
               <label htmlFor="genre" className="block text-sm font-medium mb-1">
@@ -207,6 +305,33 @@ const AddBook = () => {
               )}
             </div>
 
+
+        <div>
+          <label htmlFor="image" className="block text-sm font-medium mb-1">
+            Upload Book Cover or PDF:
+          </label>
+          <div className="flex items-center space-x-2">
+            <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg className="w-8 h-8 mb-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                </svg>
+                <p className="mb-1 text-sm text-gray-500">
+                  <span className="font-medium">Click to upload</span> or drag and drop
+                </p>
+                <p className="text-xs text-gray-500">PNG, JPG, PDF (Max 10MB)</p>
+                {fileName && (
+                  <p className="text-xs text-blue-500 mt-2 font-medium">Selected: {fileName}</p>
+                )}
+              </div>
+              <input
+                id="image"
+                name="image"
+                type="file"
+                accept=".jpg,.jpeg,.png,.pdf"
+                onChange={handleFileChange}
+                className="hidden"
+
             <div>
               <label
                 htmlFor="publishedYear"
@@ -226,6 +351,7 @@ const AddBook = () => {
                     : "border-gray-300"
                 }`}
                 placeholder="Enter year of publication"
+
               />
               {formErrors.publishedYear && (
                 <p className="text-red-500 text-xs mt-1">
