@@ -8,6 +8,8 @@ import AddBook from "./pages/AddBook";
 import EventsPage from "./pages/EventsPage";
 
 import EditBook from "./pages/EditPage";
+import AboutPage from "./pages/About";
+import ContactPage from "./pages/ContactPage";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/addbook" element={<AddBook />} />
         <Route path="/eventspage" element={<EventsPage />} />
         <Route path="/editbook" element={<EditBook />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </BrowserRouter>
   );
