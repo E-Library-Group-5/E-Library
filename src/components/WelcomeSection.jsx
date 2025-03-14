@@ -25,7 +25,7 @@ const WelcomeSection = () => {
             </p>
             <Link
               to="/books"
-              className="px-6 py-3 bg-orange-500 text-white font-medium rounded hover:bg-orange-600 transition-colors inline-block"
+              className="px-6 py-3 bg-blue-800 text-white font-medium rounded hover:bg-blue-600 transition-colors inline-block"
             >
               EXPLORE COLLECTIONS
             </Link>

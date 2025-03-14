@@ -1,43 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Add this import
+import { Link } from "react-router-dom";
+import eVents from "../assets/images/events.jpg";
 
 const EventsAndPrograms = () => {
   return (
     <div className="flex flex-col md:flex-row items-center gap-8 py-16 container mx-auto px-4">
-      {/* Left Content - Text */}
+      {/* Left Content - Image */}
       <div className="w-full md:w-1/2">
-        <h2 className="text-3xl font-bold text-gray-800">
-          EVENTS AND PROGRAMS
-        </h2>
-        <div className="w-20 h-1 bg-blue-600 my-4"></div>
-
-        <p className="text-gray-600 mb-4">
-          Join us for exciting events, workshops, and programs throughout the
-          year.
-        </p>
-
-        <p className="text-gray-700 mb-6">
-          Our library hosts a variety of programs for all ages and interests.
-          From author talks and book clubs to children's storytime, technology
-          workshops, and community gatherings. There's something for everyone to
-          learn, create, and enjoy.
-        </p>
-
-        {/* Replace button with Link component */}
-        <Link
-          to="/eventspage"
-          className="inline-block px-6 py-3 bg-orange-500 text-white font-medium hover:bg-orange-600 transition-colors uppercase"
-        >
-          View All Events
-        </Link>
-      </div>
-
-      {/* Right Content - Featured Events */}
-      <div className="w-full md:w-1/2">
-        {/* Rest of your code remains the same */}
         <div className="rounded-lg overflow-hidden shadow-lg">
           <img
-            src="/api/placeholder/600/400"
+            src={eVents}
             alt="Library event with people engaged in a workshop"
             className="w-full h-auto"
           />
@@ -67,6 +39,33 @@ const EventsAndPrograms = () => {
             </ul>
           </div>
         </div>
+      </div>
+
+      {/* Right Content - Text */}
+      <div className="w-full md:w-1/2">
+        <h2 className="text-3xl font-bold text-gray-800">
+          EVENTS AND PROGRAMS
+        </h2>
+        <div className="w-20 h-1 bg-blue-600 my-4"></div>
+
+        <p className="text-gray-600 mb-4">
+          Join us for exciting events, workshops, and programs throughout the
+          year.
+        </p>
+
+        <p className="text-gray-700 mb-6">
+          Our library hosts a variety of programs for all ages and interests.
+          From author talks and book clubs to children's storytime, technology
+          workshops, and community gatherings. There's something for everyone to
+          learn, create, and enjoy.
+        </p>
+
+        <Link
+          to="/eventspage"
+          className="inline-block px-6 py-3 bg-blue-800 text-white font-medium hover:bg-blue-600 transition-colors uppercase rounded-md"
+        >
+          View All Events
+        </Link>
       </div>
     </div>
   );

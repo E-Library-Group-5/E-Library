@@ -10,6 +10,7 @@ import theCatcher from "../assets/images/TheCatcher.png";
 import lordFlies from "../assets/images/lordFlies.jpg";
 import alChemist from "../assets/images/alchemist.jpg";
 import bookShelf from "../assets/images/bookshelf.jpg";
+import axios from "axios";
 
 // Edit Book Form Component
 const EditBookForm = ({ book, onSave, onCancel, onChange }) => {
@@ -305,9 +306,13 @@ const Books = () => {
   });
 
   // Handle book deletion
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (confirm("Are you sure you want to delete this book?")) {
+      await axios.delete(
+        `https://library-api-gxyy.onrender.com/api/v1/books/${id}`
+      );
       setBooks(books.filter((book) => book.id !== id));
+      // setBooks(books.filter((book) => book.id !== id));
     }
   };
 
