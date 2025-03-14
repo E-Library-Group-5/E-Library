@@ -8,7 +8,7 @@ const AddBook = () => {
     isbn: '',
     genre: '',
     publishedYear: '',
-    file: null
+    image: null,
   });
 
   const [fileName, setFileName] = useState('');
@@ -37,14 +37,14 @@ const AddBook = () => {
       setFileName(file.name);
       setState(prev => ({
         ...prev,
-        file: file
+        image: file
       }));
 
       // Clear file error if it exists
       if (formErrors.file) {
         setFormErrors(prev => ({
           ...prev,
-          file: null
+          image: null
         }));
       }
     }
@@ -57,6 +57,7 @@ const AddBook = () => {
     if (!formData.isbn) errors.isbn = "ISBN is required";
     if (!formData.genre) errors.genre = "Please select a genre";
     if (!formData.publishedYear) errors.publishedYear = "Year of publication";
+    if (!formData.image) errors.image = "Upload image of Book Cover";
 
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -79,7 +80,7 @@ const AddBook = () => {
     data.append('genre', formData.genre);
     data.append('publishedYear', formData.publishedYear);
     data.append('image', formData.image);
-    const response = await axios.post('https://library-api-gxyy.onrender.com/api/v1/books', formData);
+    const response = await axios.post('https://library-api-gxyy.onrender.com/api/v1/books', data);
     console.log(response.data);
 
     // Simulate form submission
@@ -93,10 +94,10 @@ const AddBook = () => {
         isbn: '',
         genre: '',
         publishedYear: '',
-        file: null
+        image: null
       });
 
-      
+     
       setFileName('');
       alert("Book added successfully!");
     }, 1000);
@@ -104,7 +105,7 @@ const AddBook = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-4 bg-blue-300 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6 text-center">Add New Book</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">Add Book</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -173,7 +174,7 @@ const AddBook = () => {
             <option value="fiction">Fiction</option>
             <option value="non-fiction">Non-Fiction</option>
             <option value="mystery">Mystery</option>
-            <option value="history">History</option>
+            <option value="romance">Romance</option>
             <option value="technology">Technology</option>
             <option value="contemporary literature">Contemporary Literature</option>
 
@@ -198,7 +199,7 @@ const AddBook = () => {
         </div>
 
         <div>
-          <label htmlFor="file" className="block text-sm font-medium mb-1">
+          <label htmlFor="image" className="block text-sm font-medium mb-1">
             Upload Book Cover or PDF:
           </label>
           <div className="flex items-center space-x-2">
@@ -216,8 +217,8 @@ const AddBook = () => {
                 )}
               </div>
               <input
-                id="file"
-                name="file"
+                id="image"
+                name="image"
                 type="file"
                 accept=".jpg,.jpeg,.png,.pdf"
                 onChange={handleFileChange}
