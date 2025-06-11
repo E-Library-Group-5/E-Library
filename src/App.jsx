@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.css";
 import Landing from "./pages/Landing";
-import Books from "../src/pages/Books";
+import Books from "./pages/Books";  // ← Fixed this line
 import SingleBook from "./pages/SingleBook";
 import AddBook from "./pages/AddBook";
 
