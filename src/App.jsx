@@ -1,16 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.css";
 import Landing from "./pages/Landing";
-
 import SingleBook from "./pages/SingleBook";
 import AddBook from "./pages/AddBook";
-
 import EventsPage from "./pages/EventsPage";
-
 import EditBook from "./pages/EditPage";
 import AboutPage from "./pages/About";
 import ContactPage from "./pages/ContactPage";
-import Books from "./pages/books";
+
 
 function App() {
   return (
