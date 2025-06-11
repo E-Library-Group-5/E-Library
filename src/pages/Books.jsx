@@ -146,11 +146,10 @@ const BookDetails = ({ book, onClose }) => {
                 {[...Array(5)].map((_, i) => (
                   <svg
                     key={i}
-                    className={`w-5 h-5 ${
-                      i < Math.floor(book.rating)
+                    className={`w-5 h-5 ${i < Math.floor(book.rating)
                         ? "text-yellow-400"
                         : "text-gray-300"
-                    }`}
+                      }`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -426,11 +425,10 @@ const Books = () => {
                         className="w-full h-full object-cover"
                       />
                       <div
-                        className={`absolute top-0 right-0 m-2 px-2 py-1 rounded-full text-xs font-bold ${
-                          book.available
+                        className={`absolute top-0 right-0 m-2 px-2 py-1 rounded-full text-xs font-bold ${book.available
                             ? "bg-green-500 text-white"
                             : "bg-red-500 text-white"
-                        }`}
+                          }`}
                       >
                         {book.available ? "Available" : "Checked Out"}
                       </div>
@@ -449,11 +447,10 @@ const Books = () => {
                           {[...Array(5)].map((_, i) => (
                             <svg
                               key={i}
-                              className={`w-4 h-4 ${
-                                i < Math.floor(book.rating)
+                              className={`w-4 h-4 ${i < Math.floor(book.rating)
                                   ? "text-yellow-400"
                                   : "text-gray-300"
-                              }`}
+                                }`}
                               fill="currentColor"
                               viewBox="0 0 20 20"
                             >
